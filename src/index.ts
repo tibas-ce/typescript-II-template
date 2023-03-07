@@ -7,20 +7,72 @@ Crie um sistema de cadastro de usuários que contenha:
   b. NormalAccount
 */
 
+import { table } from "console";
 
+enum Role {
+  ADMIN = "Admin",
+  NORMAL = "Normal"
+};
 
+type Person = {
+  id: string,
+  name: string,
+  email: string,
+  password: string,
+  role: Role
+};
 
+type AdminAccount = {
+  account: string,
+  permission: boolean
+};
 
+type NormalAccount = {
+  account: string,
+  permission: boolean
+};
 
+type AdminUser = Person & AdminAccount;
 
+type NormalUser = Person & NormalAccount;
 
+const admins: AdminUser[] = [];
 
+const common: NormalUser[] = [];
 
+const user1: AdminUser = {
+  id: "1",
+  name: "Tibério",
+  email: "tibas@email.com",
+  password: "123456",
+  role: Role.ADMIN,
+  account: "001",
+  permission: true
+};
 
+const user2: NormalUser = {
+  id: "2",
+  name: "Belchior",
+  email: "Belchior@email.com",
+  password: "123456",
+  role: Role.NORMAL,
+  account: "002",
+  permission: false
+};
 
+function validateUser(usuario: AdminUser | NormalUser){
+  if(usuario.role !== Role.NORMAL){
+    admins.push(usuario)
+  } else {
+    common.push(usuario)
+  }
+};
 
+validateUser(user1);
+validateUser(user2);
 
-
+console.table(admins);
+console.table(common);
 
 /* PRÁTICA GUIADA - Parte 2
 Vamos continuar nosso sistema de cadastro de usuários criando:
@@ -31,4 +83,14 @@ Vamos continuar nosso sistema de cadastro de usuários criando:
 4. Crie duas pessoas, uma com permissão normal e a outra admin;
 5. Guarde essas pessoas no array de usuários.
 
-*/ 
+*/
+
+/* enum Role {
+  ADMIN = "Admin",
+  NORMAL = "Normal"
+}; 
+
+type AdminUser = Person & AdminAccount;
+
+type NormalUser = Person & NormalAccount;
+*/
